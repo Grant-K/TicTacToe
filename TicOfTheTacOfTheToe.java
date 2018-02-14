@@ -13,7 +13,7 @@ public class TicOfTheTacOfTheToe
     private String[] board = new String[9];
     private int players = 1;
     private int turns = 0;
-    private int[][] winLines = new int[][]{{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,8}};
+    private int[][] winLines = new int[][]{{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}};
     private boolean playAgain = true;
     /**
      * Constructor for objects of class TicOfTheTacOfTheToe
@@ -26,7 +26,7 @@ public class TicOfTheTacOfTheToe
 
     public void TicOfTheTacOfTheToe()
     {
-        while(playAgain = true)
+        while(playAgain == true)
         {
             Scanner scan = new Scanner(System.in);
             System.out.println("Enter 1 for 1 player, or Enter 2 for 2 players");
@@ -64,6 +64,7 @@ public class TicOfTheTacOfTheToe
      */
     public void reset()
     {
+        turns = 0;
         for(int i = 0; i < board.length; i++)
         {
             board[i] = Integer.toString(i);
@@ -90,11 +91,13 @@ public class TicOfTheTacOfTheToe
                 {
                     System.out.println("Player 1 (X) Wins!");
                     isWinner = true;
+                    i = 8;
                 }
                 else if(board[winLines[i][0]] == "O" && board[winLines[i][1]] == "O" && board[winLines[i][2]] == "O")
                 {
                     System.out.println("Player 2 (O) Wins!");
                     isWinner = true;
+                    i = 8;
                 }
             }
         }
@@ -109,19 +112,26 @@ public class TicOfTheTacOfTheToe
         if(turns % 2 == 0)
         {
             System.out.println("It is Player 1's (X) Turn.");
-            System.out.println("Please Enter An Avaliable Poistion to Make Your Move.");
+            System.out.println("Please Enter An Avaliable Position to Make Your Move.");
             show();
             if(scan.hasNextInt())
+            {
                 moveIndex = scan.nextInt();
-            hadNextInt = true;
-            if(hadNextInt == false && (scan.hasNextInt() == false || board[moveIndex] == "X" || board[moveIndex] == "O"))
-                while(scan.hasNextInt() == false && hadNextInt == false)
+                hadNextInt = true;
+            }
+            if((hadNextInt == false && scan.hasNextInt() == false) || board[moveIndex] == "X" || board[moveIndex] == "O" || moveIndex > 8 || moveIndex < 0)
+                while((hadNextInt == false && scan.hasNextInt() == false) || board[moveIndex] == "X" || board[moveIndex] == "O" || moveIndex > 8 || moveIndex < 0)
                 {
 
-                    System.out.println("Invalid Input!\n Please Try Again Make Sure You Enter The Number Of The Position to Make Your Move!");
+                    System.out.println("Invalid Input!\nPlease Try Again Make Sure You Enter The Number Of The Position to Make Your Move!");
                     System.out.println("It is Player 1's (X) Turn.");
-                    System.out.println("Please Enter An Avaliable Poistion to Make Your Move.");
+                    System.out.println("Please Enter An Avaliable Position to Make Your Move.");
                     show();
+                    if(scan.hasNextInt())
+                    {
+                        moveIndex = scan.nextInt();
+                        hadNextInt = true;
+                    }
                 }
             board[moveIndex] = "X";
             turns++;
@@ -129,19 +139,28 @@ public class TicOfTheTacOfTheToe
         else
         {
             System.out.println("It is Player 2's (O) Turn.");
-            System.out.println("Please Enter An Avaliable Poistion to Make Your Move.");
+            System.out.println("Please Enter An Avaliable Position to Make Your Move.");
             show();
-            while(scan.hasNextInt() == false)
+            if(scan.hasNextInt())
             {
                 moveIndex = scan.nextInt();
-                System.out.println("Invalid Input!\n Please Try Again Make Sure You Enter The Number Of The Position to Make Your Move!");
-                System.out.println("It is Player 2's (O) Turn.");
-                System.out.println("Please Enter An Avaliable Poistion to Make Your Move.");
-                show();
-                if(board[moveIndex] != "X" || board[moveIndex] != "O")
-                    break;
+                hadNextInt = true;
             }
-            board[moveIndex] = "X";
+            if((hadNextInt == false && scan.hasNextInt() == false) || board[moveIndex] == "X" || board[moveIndex] == "O")
+                while((hadNextInt == false && scan.hasNextInt() == false) || board[moveIndex] == "X" || board[moveIndex] == "O")
+                {
+
+                    System.out.println("Invalid Input!\nPlease Try Again Make Sure You Enter The Number Of The Position to Make Your Move!");
+                    System.out.println("It is Player 2's (O) Turn.");
+                    System.out.println("Please Enter An Avaliable Position to Make Your Move.");
+                    show();
+                    if(scan.hasNextInt())
+                    {
+                        moveIndex = scan.nextInt();
+                        hadNextInt = true;
+                    }
+                }
+            board[moveIndex] = "O";
             turns++;
         }
     }
@@ -172,7 +191,7 @@ public class TicOfTheTacOfTheToe
                 show();
             }
         }
-        if(turns >= 9)
+        if(turns >= 9 && hasWinner() == false)
             System.out.println("The Game Was a Tie!");
         System.out.println("Would You Like to Play Again? (Y) (N)");
         String cont = scan.next();
@@ -210,7 +229,7 @@ public class TicOfTheTacOfTheToe
             System.out.println("A move was made the board now looks like this.");
             show();
         }
-        if(turns >= 9)
+        if(turns >= 9 && hasWinner() == false)
             System.out.println("The Game Was a Tie!");
         System.out.println("Would You Like to Play Again? (Y) (N)");
         String cont = scan.next();
