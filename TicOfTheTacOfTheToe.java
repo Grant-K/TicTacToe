@@ -166,7 +166,12 @@ public class TicOfTheTacOfTheToe
                 {
                     if(i+y >= 9)
                     {
-                        System.out.print(String.format("%-2s", board[i+y]));
+                        if(board[i+y].equals("X") || board[i+y].equals("O"))
+                        {
+                            System.out.print("-" + board[i+y]);
+                        }
+                        else
+                            System.out.print(String.format("%-2s", board[i+y]));
                         System.out.print(" | ");
                     }
                     else
