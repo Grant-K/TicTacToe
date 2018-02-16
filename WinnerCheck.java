@@ -32,7 +32,7 @@ public class WinnerCheck
                     if(board[c].equals(board[c-1]))
                         currentlyConnected++;
                 }
-                if((c + 1) <= i + boardSize - 1 && i + boardSize - 1 < board.length)
+                if((c + 1) <= i + boardSize + (c-i) && i + boardSize + (c-i) < board.length)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
@@ -43,7 +43,7 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c + 1) <= i + boardSize - 1 && i + boardSize - 1 < board.length)
+                if((c + 1) <= i + boardSize + (c-i) && i + boardSize + (c-i) < board.length)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
@@ -151,7 +151,7 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c - boardSize+ 1) > 0)
+                if((c - boardSize + 1) > 0)
                 {
                     if(board[c].equals(board[c - boardSize + 1]))
                         currentlyConnected++;

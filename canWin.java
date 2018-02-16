@@ -35,7 +35,7 @@ public class canWin
                     else
                         winMovePos = (c-1);
                 }
-                if((c + 1) <= i + boardSize - 1  && i + boardSize - 1 < board.length)
+                if((c + 1) <= i + boardSize + (c - i)  && i + boardSize + (c - i)< board.length)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
@@ -48,7 +48,7 @@ public class canWin
                 }
                 currentlyConnected = 0;
                 winMovePos = -1;
-                if((c + 1) <= i + boardSize - 1 && i + boardSize - 1 < board.length)
+                if((c + 1) <= i + boardSize - 1+ (c-i) && i + boardSize + (c-i) < board.length)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
