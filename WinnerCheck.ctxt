@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=board\ boardSize
+comment0.target=boolean\ hasWinner(java.lang.String[],\ int)
+comment1.params=board\ boardSize
+comment1.target=boolean\ winInLine(java.lang.String[],\ int)
+comment2.params=board\ boardSize
+comment2.target=boolean\ winInDiag(java.lang.String[],\ int)
+numComments=3

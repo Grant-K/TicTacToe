@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Date;
 /**
  * Write a description of class TicOfTheTacOfTheToe here.
  * 
@@ -8,17 +7,14 @@ import java.util.Date;
  */
 public class TicOfTheTacOfTheToe
 {
-    // instance variables - replace the example below with your own
     private int x;
     private String[] board;
     private int players = 1;
     private int turns = 0;
     private int boardSize = 3;
-    private int[][] winLines = new int[][]{{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}};
     private boolean playAgain = true;
-    /**
-     * Constructor for objects of class TicOfTheTacOfTheToe
-     */
+    private WinnerCheck winCheck = new WinnerCheck();
+    private canWin canWinCheck = new canWin();
     public static void main(String[] args)
     {
         TicOfTheTacOfTheToe game = new TicOfTheTacOfTheToe();
@@ -73,12 +69,6 @@ public class TicOfTheTacOfTheToe
         }
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     public void reset()
     {
         turns = 0;
@@ -95,301 +85,53 @@ public class TicOfTheTacOfTheToe
             System.out.print("+");
             for(int z = 0; z < boardSize; z++)
             {
-                if(board.length >= 100)
-                    System.out.print("-----");
-                else if(board.length >= 10)
-                    System.out.print("----");
-                else
-                    System.out.print("---");
+                System.out.print("-----");
                 System.out.print("+");
             }
             System.out.println();
-            if(board.length >= 100)
+            System.out.print("| ");
+            for(int y = 0; y < boardSize; y++)
             {
-                System.out.print("| ");
-                for(int y = 0; y < boardSize-1; y++)
+                if(i+y >= 99)
                 {
-                    if(board.length >= 100)
+                    if(board[i+y].equals("X") || board[i+y].equals("O"))
                     {
-                        if(i+y >= 99)
-                        {
-                            System.out.print(String.format("%-3s", board[i+y]));
-                            System.out.print(" | ");
-                        }
-                        else if(i+y >= 10)
-                        {
-                            if(board[i+y].equals("X") || board[i+y].equals("O"))
-                            {
-                                System.out.print("-" + board[i+y] + "-");
-                            }
-                            else
-                                System.out.print(String.format("%-2s", board[i+y]));
-                            System.out.print(" | ");
-                        }
-                        else
-                        {
-                            if(board[i+y].equals("X") || board[i+y].equals("O"))
-                            {
-                                System.out.print("-" + board[i+y] + "-");
-                            }
-                            else
-                                System.out.print(String.format("%-1s", board[i+y]));
-                            System.out.print(" | ");
-                        }
-                    }
-                }
-                if(i + boardSize-1 < 10)
-                {
-                    if(board[i + boardSize-1].equals("X") || board[i + boardSize-1].equals("O"))
-                    {
-                        System.out.print("-" + board[i + boardSize-1] + "-" + " |");
+                        System.out.print(" " + board[i+y] + " ");
                     }
                     else
-                        System.out.println("00" + board[i + boardSize-1] + " |");
+                        System.out.print(String.format("%-3s", board[i+y]));
+                    System.out.print(" | ");
                 }
-                else if(i + boardSize-1 < 100)
+                else if(i+y >= 10)
                 {
-                    if(board[i + boardSize-1].equals("X") || board[i + boardSize-1].equals("O"))
+                    if(board[i+y].equals("X") || board[i+y].equals("O"))
                     {
-                        System.out.print("-" + board[i + boardSize-1] + " |");
+                        System.out.print(" " + board[i+y] + " ");
                     }
                     else
-                        System.out.println("0" + board[i + boardSize-1] + " |");
-                }
-                else
-                    System.out.println((board[i + boardSize-1] + " |"));
-            }
-            else if(board.length >= 10)
-            {
-                System.out.print("| ");
-                for(int y = 0; y < boardSize-1; y++)
-                {
-                    if(i+y >= 9)
-                    {
-                        if(board[i+y].equals("X") || board[i+y].equals("O"))
-                        {
-                            System.out.print("-" + board[i+y]);
-                        }
-                        else
-                            System.out.print(String.format("%-2s", board[i+y]));
-                        System.out.print(" | ");
-                    }
-                    else
-                    {
-                        if(i+y < 10 && board.length >= 99)
-                        {
-                            if(board[i+y].equals("X") || board[i+y].equals("O"))
-                            {
-                                System.out.print("-" + board[i+y] + "-" + " |");
-                            }
-                            else
-                                System.out.print("00" + board[i+y]);
-                            System.out.print(" | ");
-                        }
-                        else
-                        {
-                            if(board[i+y].equals("X") || board[i+y].equals("O"))
-                            {
-                                System.out.print("-" + board[i+y]);
-                            }
-                            else
-                                System.out.print("0" + board[i+y]);
-                            System.out.print(" | ");
-                        }
-                    }
-                }
-                if (i + boardSize-1 < 10)
-                {
-                    if(board[i + boardSize-1].equals("X") || board[i + boardSize-1].equals("O"))
-                    {
-                        System.out.print("-" + board[i + boardSize-1] + " |");
-                    }
-                    else
-                        System.out.println("0" + (board[i + boardSize-1] + " |"));
+                        System.out.print(String.format("%-3s", ("0" + board[i+y])));
+                    System.out.print(" | ");
                 }
                 else
                 {
-                    System.out.println((board[i + boardSize-1] + " |"));
+                    if(board[i+y].equals("X") || board[i+y].equals("O"))
+                    {
+                        System.out.print(" " + board[i+y] + " ");
+                    }
+                    else
+                        System.out.print(String.format("%-3s", ("00" + board[i+y])));
+                    System.out.print(" | ");
                 }
             }
-            else
-            {
-                System.out.print("| " + board[i] + " | ");
-                for(int y = 1; y < boardSize-1; y++)
-                    System.out.print(board[i+y] + " | ");
-                System.out.println(board[i + boardSize-1] + " |");
-            }
+            System.out.println();
         }
         System.out.print("+");
         for(int z = 0; z < boardSize; z++)
         {
-            if(board.length >= 100)
-                System.out.print("-----");
-            else if(board.length >= 10)
-                System.out.print("----");
-            else
-                System.out.print("---");
+            System.out.print("-----");
             System.out.print("+");
         }
         System.out.println();
-    }
-
-    public boolean hasWinner()
-    {
-        boolean isWinner = false;
-        if(turns >= 4)
-        {
-            isWinner=winInLine();
-            if(isWinner == false)
-                isWinner=winInDiag();
-        }
-        return isWinner;
-    }
-
-    public boolean winInLine()
-    {
-        int currentlyConnected = 0;
-        for(int i = 0; i < board.length; i++)
-        {
-            currentlyConnected = 0;
-            if((i - 1) >= 0)
-            {
-                if(board[i].equals(board[i-1]))
-                    currentlyConnected++;
-            }
-            if((i + 1) < board.length)
-            {
-                if(board[i].equals(board[i+1]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i + 1) < board.length)
-            {
-                if(board[i].equals(board[i+1]))
-                    currentlyConnected++;
-            }
-            if((i + 2) < board.length)
-            {
-                if(board[i].equals(board[i+2]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i - 1) >= 0)
-            {
-                if(board[i].equals(board[i-1]))
-                    currentlyConnected++;
-            }
-            if((i - 2) >= 0)
-            {
-                if(board[i].equals(board[i-2]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i + boardSize - 1) < board.length)
-            {
-                if(board[i].equals(board[i + boardSize - 1]))
-                    currentlyConnected++;
-            }
-            if((i - boardSize - 1) >= 0)
-            {
-                if(board[i].equals(board[i-boardSize- 1]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i + boardSize - 1) < board.length)
-            {
-                if(board[i].equals(board[i + boardSize -  1]))
-                    currentlyConnected++;
-            }
-            if((i + boardSize*2 - 2) < board.length)
-            {
-                if(board[i].equals(board[i + boardSize*2 - 2]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i - boardSize - 1) >= 0)
-            {
-                if(board[i].equals(board[i - boardSize - 1]))
-                    currentlyConnected++;
-            }
-            if((i - boardSize*2 - 2) >= 0)
-            {
-                if(board[i].equals(board[i - boardSize*2 - 2]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean winInDiag()
-    {
-        int currentlyConnected = 0;
-        for(int i = 0; i < board.length; i++)
-        {
-            currentlyConnected = 0;
-            if((i - boardSize - 1 - 1) >= 0)
-            {
-                if(board[i].equals(board[i - boardSize - 1 - 1]))
-                    currentlyConnected++;
-            }
-            if((i + boardSize - 1 + 1) < board.length)
-            {
-                if(board[i].equals(board[i + boardSize - 1 + 1]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-            currentlyConnected = 0;
-            if((i - boardSize - 1 + 1) >= 0)
-            {
-                if(board[i].equals(board[i - boardSize - 1 + 1]))
-                    currentlyConnected++;
-            }
-            if((i + boardSize - 1 - 1) < board.length)
-            {
-                if(board[i].equals(board[i + boardSize - 1 - 1]))
-                    currentlyConnected++;
-            }
-            if(currentlyConnected == 2)
-            {
-                System.out.println(board[i] + "'s Win!");
-                return true;
-            }
-        }
-        return false;
     }
 
     public void input()
@@ -457,14 +199,14 @@ public class TicOfTheTacOfTheToe
     {
         Scanner scan = new Scanner(System.in);
         System.out.println("One Player Game (Player VS. Computer)");
-        while(turns < board.length && hasWinner() == false)
+        boolean hadWinner = false;
+        while(turns < board.length && hadWinner == false)
         {
             if(turns % 2 == 0)
             {
                 input();
                 System.out.print('\u000C');
-                System.out.println("A move was made the board now looks like this.");
-                show();
+                hadWinner = winCheck.hasWinner(board,boardSize);
             }
             else
             {
@@ -474,19 +216,26 @@ public class TicOfTheTacOfTheToe
                     move = (int)(Math.random() * (board.length-1));
                 }
                 turns++;
+                if(canWinCheck.someoneCanWin(board,boardSize) >= 0)
+                    move = canWinCheck.someoneCanWin(board,boardSize);
+                System.out.println(canWinCheck.someoneCanWin(board,boardSize));
                 board[move] = "O";
-                System.out.println("A move was made the board now looks like this.");
-                show();
+                hadWinner =  winCheck.hasWinner(board,boardSize);
             }
         }
-        if(turns >= board.length && hasWinner() == false)
+        if(turns >= board.length && hadWinner == false)
+        {
             System.out.println("The Game Was a Tie!");
-        System.out.println("Would You Like to Play Again? (Y) (N)");
+            show();
+        }
+        else
+            show();
+        System.out.println("Would You Like to Play Again? (Y) or (N)");
         String cont = scan.next();
         while((cont.toLowerCase().equals("n")) == false && (cont.toLowerCase().equals("y")) == false)
         {
             System.out.println("Invalid Input!");
-            System.out.println("Would You Like to Play Again? (Y) (N)");
+            System.out.println("Would You Like to Play Again? (Y) or (N)");
             cont = scan.next();
         }
         if(cont.toLowerCase().equals("y"))
@@ -509,22 +258,26 @@ public class TicOfTheTacOfTheToe
     public void twoPlayerGame()
     {
         Scanner scan = new Scanner(System.in);
+        boolean hadWinner = false;
         System.out.println("Two Player Game (Player VS. Player");
-        while(turns < board.length && hasWinner() == false)
+        while(turns < board.length && hadWinner == false)
         {
             input();
-            System.out.print('\u000C');
-            System.out.println("A move was made the board now looks like this.");
+            hadWinner =  winCheck.hasWinner(board,boardSize);
+        }
+        if(turns >= board.length && hadWinner == false)
+        {
+            System.out.println("The Game Was a Tie!");
             show();
         }
-        if(turns >= board.length && hasWinner() == false)
-            System.out.println("The Game Was a Tie!");
-        System.out.println("Would You Like to Play Again? (Y) (N)");
+        else
+            show();
+        System.out.println("Would You Like to Play Again? (Y) or (N)");
         String cont = scan.next();
         while((cont.toLowerCase().equals("n")) == false && (cont.toLowerCase().equals("y")) == false)
         {
             System.out.println("Invalid Input!");
-            System.out.println("Would You Like to Play Again? (Y) (N)");
+            System.out.println("Would You Like to Play Again? (Y) or (N)");
 
         }
         if(cont.toLowerCase().equals("y"))
