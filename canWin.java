@@ -17,7 +17,6 @@ public class canWin
             //System.out.println("Doing Diagnal Check!");
             winPos = canWinInDiag(board,boardSize);
         }
-        System.out.println(winPos);
         return winPos;
     }
 
@@ -29,7 +28,6 @@ public class canWin
         {
             for(int c = i; c < boardSize*((i + boardSize)/boardSize); c++)
             {
-                System.out.print(c);
                 if((c - 1) >= i)
                 {
                     if(board[c].equals(board[c-1]))
@@ -175,10 +173,6 @@ public class canWin
                     else
                         winMovePos = (c + boardSize + 1);
                 }
-                System.out.println("winMovePos = " + winMovePos);
-                System.out.println("Equation returns: " + (c + boardSize - 1));
-                System.out.println("C = " + c);
-                System.out.println("Currently Connected = " + currentlyConnected);
                 if(currentlyConnected == 1 && winMovePos > -1)
                 {
                     return winMovePos;
@@ -199,10 +193,6 @@ public class canWin
                     else
                         winMovePos = (c + boardSize - 1);
                 }
-                System.out.println("winMovePos = " + winMovePos);
-                System.out.println("Equation returns: " + (c + boardSize - 1));
-                System.out.println("C = " + c);
-                System.out.println("Currently Connected = " + currentlyConnected);
                 if(currentlyConnected == 1 && winMovePos > -1)
                 {
                     return winMovePos;

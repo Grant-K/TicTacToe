@@ -218,7 +218,6 @@ public class TicOfTheTacOfTheToe
                     move = (int)(Math.random() * (board.length-1));
                 }
                 turns++;
-                System.out.println("canWinCheck from main class returns: " + canWinCheck.someoneCanWin(board,boardSize));
                 board[move] = "O";
                 hadWinner =  winCheck.hasWinner(board,boardSize);
             }
