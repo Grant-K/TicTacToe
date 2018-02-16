@@ -211,14 +211,14 @@ public class TicOfTheTacOfTheToe
             else
             {
                 int move = (int)Math.random() * (board.length-1);
+                if(canWinCheck.someoneCanWin(board,boardSize) >= 0)
+                    move = canWinCheck.someoneCanWin(board,boardSize);
                 while(board[move] == "X" || board[move] == "O")
                 {
                     move = (int)(Math.random() * (board.length-1));
                 }
                 turns++;
-                if(canWinCheck.someoneCanWin(board,boardSize) >= 0)
-                    move = canWinCheck.someoneCanWin(board,boardSize);
-                System.out.println(canWinCheck.someoneCanWin(board,boardSize));
+                System.out.println("canWinCheck from main class returns: " + canWinCheck.someoneCanWin(board,boardSize));
                 board[move] = "O";
                 hadWinner =  winCheck.hasWinner(board,boardSize);
             }
