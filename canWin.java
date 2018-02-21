@@ -35,34 +35,36 @@ public class canWin
                     else
                         winMovePos = (c-1);
                 }
-                if((c + 1) <= i + boardSize + (c - i)  && i + boardSize + (c - i)< board.length)
+                if((c + 1) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
                     else
                         winMovePos = (c+1);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
                 currentlyConnected = 0;
                 winMovePos = -1;
-                if((c + 1) <= i + boardSize - 1+ (c-i) && i + boardSize + (c-i) < board.length)
+                if((c + 1) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
                     else
                         winMovePos = (c+1);
                 }
-                if((c + 2) <= i + boardSize - 1  && i + boardSize - 1 < board.length)
+                if((c + 2) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+2]))
                         currentlyConnected++;
                     else
                         winMovePos = (c+2);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
@@ -82,13 +84,14 @@ public class canWin
                     else
                         winMovePos = (c-2);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
                 currentlyConnected = 0;
                 winMovePos = -1;
-                if((c + boardSize) <= i + boardSize + (c - i)  && i + boardSize + (c - i) < board.length)
+                if((c + boardSize) <= i + boardSize + boardSize - 1  && i + boardSize + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize]))
                         currentlyConnected++;
@@ -102,27 +105,29 @@ public class canWin
                     else
                         winMovePos = (c-boardSize);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
                 currentlyConnected = 0;
                 winMovePos = -1;
-                if((c + boardSize) <= i + boardSize + (c - i)  && i + boardSize + (c - i) < board.length)
+                if((c + boardSize) <= i + boardSize + boardSize - 1  && i + boardSize + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize]))
                         currentlyConnected++;
                     else
                         winMovePos = (c+boardSize);
                 }
-                if((c + boardSize*2) <= i + boardSize*2 + (c - i)  && i + boardSize*2 + (c - i) < board.length)
+                if((c + boardSize*2) <= i + boardSize*2 + boardSize - 1  && i + boardSize*2 + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize*2]))
                         currentlyConnected++;
                     else
                         winMovePos = (c+boardSize*2);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
@@ -142,10 +147,13 @@ public class canWin
                     else
                         winMovePos = (c-boardSize*2);
                 }
-                if(currentlyConnected == 1 && winMovePos > -1)
+                //System.out.println("C: " + c + "\nCurrently Connected: " + currentlyConnected + "\nwinMovePos: " + winMovePos);
+                if(currentlyConnected == 1 && winMovePos > -1 && (board[winMovePos].equals("O") == false))
                 {
                     return winMovePos;
                 }
+                currentlyConnected = 0;
+                winMovePos = -1;
             }
         }
         return -1;
@@ -159,7 +167,7 @@ public class canWin
         {
             for(int c = i; c < boardSize*((i + boardSize)/boardSize); c++)
             {
-                if((c - boardSize - 1) > 0)
+                if((c - boardSize - 1) >= 0)
                 {
                     if(board[c].equals(board[c - boardSize - 1]))
                         currentlyConnected++;
@@ -179,7 +187,7 @@ public class canWin
                 }
                 currentlyConnected = 0;
                 winMovePos = -1;
-                if((c - boardSize + 1) > 0)
+                if((c - boardSize + 1) >= 0)
                 {
                     if(board[c].equals(board[c - boardSize + 1]))
                         currentlyConnected++;

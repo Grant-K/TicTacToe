@@ -32,7 +32,7 @@ public class WinnerCheck
                     if(board[c].equals(board[c-1]))
                         currentlyConnected++;
                 }
-                if((c + 1) <= i + boardSize + (c-i) && i + boardSize + (c-i) < board.length)
+                if((c + 1) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
@@ -43,12 +43,12 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c + 1) <= i + boardSize + (c-i) && i + boardSize + (c-i) < board.length)
+                if((c + 1) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+1]))
                         currentlyConnected++;
                 }
-                if((c + 2) <= i + boardSize - 1 && i + boardSize - 1 < board.length)
+                if((c + 2) <= i + boardSize - 1)
                 {
                     if(board[c].equals(board[c+2]))
                         currentlyConnected++;
@@ -75,7 +75,7 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c + boardSize) <= i + boardSize && i + boardSize < board.length)
+                if((c + boardSize) <= i + boardSize + boardSize - 1 && i + boardSize + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize]))
                         currentlyConnected++;
@@ -91,12 +91,12 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c + boardSize) <= i + boardSize && i + boardSize < board.length)
+                if((c + boardSize) <= i + boardSize + boardSize - 1 && i + boardSize + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize]))
                         currentlyConnected++;
                 }
-                if((c + boardSize*2) <= i + boardSize*2 && i + boardSize*2 < board.length)
+                if((c + boardSize*2) <= i + boardSize*2 + boardSize - 1 && i + boardSize*2 + boardSize - 1 < board.length)
                 {
                     if(board[c].equals(board[c + boardSize*2]))
                         currentlyConnected++;
@@ -122,6 +122,7 @@ public class WinnerCheck
                     System.out.println(board[c] + "'s Win!");
                     return true;
                 }
+                currentlyConnected = 0;
             }
         }
         return false;
@@ -135,7 +136,7 @@ public class WinnerCheck
             for(int c = i; c < boardSize*((i + boardSize)/boardSize); c++)
             {
                 currentlyConnected = 0;
-                if((c - boardSize - 1) > 0)
+                if((c - boardSize - 1) >= 0)
                 {
                     if(board[c].equals(board[c - boardSize - 1]))
                         currentlyConnected++;
@@ -151,7 +152,7 @@ public class WinnerCheck
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c - boardSize + 1) > 0)
+                if((c - boardSize + 1) >= 0)
                 {
                     if(board[c].equals(board[c - boardSize + 1]))
                         currentlyConnected++;

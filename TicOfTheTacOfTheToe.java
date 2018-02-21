@@ -67,6 +67,16 @@ public class TicOfTheTacOfTheToe
                 TicOfTheTacOfTheToe();
             }
         }
+        try        
+        {
+            Thread.sleep(2500);
+        } 
+        catch(InterruptedException ex) 
+        {
+            Thread.currentThread().interrupt();
+        }
+        System.out.print('\u000C');
+        return;
     }
 
     public void reset()
@@ -213,7 +223,7 @@ public class TicOfTheTacOfTheToe
                 int move = (int)Math.random() * (board.length-1);
                 if(canWinCheck.someoneCanWin(board,boardSize) >= 0)
                     move = canWinCheck.someoneCanWin(board,boardSize);
-                while(board[move] == "X" || board[move] == "O")
+                while(board[move].equals("X") || board[move].equals("O"))
                 {
                     move = (int)(Math.random() * (board.length-1));
                 }
@@ -258,10 +268,11 @@ public class TicOfTheTacOfTheToe
     {
         Scanner scan = new Scanner(System.in);
         boolean hadWinner = false;
-        System.out.println("Two Player Game (Player VS. Player");
+        System.out.println("Two Player Game (Player VS. Player)");
         while(turns < board.length && hadWinner == false)
         {
             input();
+            System.out.print('\u000C');
             hadWinner =  winCheck.hasWinner(board,boardSize);
         }
         if(turns >= board.length && hadWinner == false)
