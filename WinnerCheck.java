@@ -27,97 +27,29 @@ public class WinnerCheck
         {
             for(int c = i; c < boardSize*((i + boardSize)/boardSize); c++)
             {
-                if((c - 1) >= i)
+                for(int ci = 1; ci < boardSize; ci++)
                 {
-                    if(board[c].equals(board[c-1]))
-                        currentlyConnected++;
+                    if((c + ci) <= i + boardSize - 1)
+                    {
+                        if(board[c].equals(board[c+ci]))
+                            currentlyConnected++;
+                    }
                 }
-                if((c + 1) <= i + boardSize - 1)
-                {
-                    if(board[c].equals(board[c+1]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
+                if(currentlyConnected == boardSize - 1)
                 {
                     System.out.println(board[c] + "'s Win!");
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c + 1) <= i + boardSize - 1)
+                for(int ci = 1; ci < boardSize; ci++)
                 {
-                    if(board[c].equals(board[c+1]))
-                        currentlyConnected++;
+                    if((c + boardSize*ci) <= i + boardSize*ci + boardSize - 1 && i + boardSize*ci + boardSize - 1 < board.length)
+                    {
+                        if(board[c].equals(board[c + boardSize*ci]))
+                            currentlyConnected++;
+                    }
                 }
-                if((c + 2) <= i + boardSize - 1)
-                {
-                    if(board[c].equals(board[c+2]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
-                {
-                    System.out.println(board[c] + "'s Win!");
-                    return true;
-                }
-                currentlyConnected = 0;
-                if((c - 1) >= i)
-                {
-                    if(board[c].equals(board[c-1]))
-                        currentlyConnected++;
-                }
-                if((c - 2) >= i)
-                {
-                    if(board[c].equals(board[c-2]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
-                {
-                    System.out.println(board[c] + "'s Win!");
-                    return true;
-                }
-                currentlyConnected = 0;
-                if((c + boardSize) <= i + boardSize + boardSize - 1 && i + boardSize + boardSize - 1 < board.length)
-                {
-                    if(board[c].equals(board[c + boardSize]))
-                        currentlyConnected++;
-                }
-                if((c - boardSize) >= i - boardSize && i - boardSize >= 0)
-                {
-                    if(board[c].equals(board[c - boardSize]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
-                {
-                    System.out.println(board[c] + "'s Win!");
-                    return true;
-                }
-                currentlyConnected = 0;
-                if((c + boardSize) <= i + boardSize + boardSize - 1 && i + boardSize + boardSize - 1 < board.length)
-                {
-                    if(board[c].equals(board[c + boardSize]))
-                        currentlyConnected++;
-                }
-                if((c + boardSize*2) <= i + boardSize*2 + boardSize - 1 && i + boardSize*2 + boardSize - 1 < board.length)
-                {
-                    if(board[c].equals(board[c + boardSize*2]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
-                {
-                    System.out.println(board[c] + "'s Win!");
-                    return true;
-                }
-                currentlyConnected = 0;
-                if((c - boardSize) >= i - boardSize && i - boardSize >= 0)
-                {
-                    if(board[c].equals(board[c - boardSize]))
-                        currentlyConnected++;
-                }
-                if((c - boardSize*2) >= i - boardSize*2 && i - boardSize*2 >= 0)
-                {
-                    if(board[c].equals(board[c - boardSize*2]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
+                if(currentlyConnected == boardSize - 1)
                 {
                     System.out.println(board[c] + "'s Win!");
                     return true;
@@ -135,34 +67,30 @@ public class WinnerCheck
         {
             for(int c = i; c < boardSize*((i + boardSize)/boardSize); c++)
             {
-                currentlyConnected = 0;
-                if((c - boardSize - 1) >= 0)
+                for(int ci = 1; ci < boardSize; ci++)
                 {
-                    if(board[c].equals(board[c - boardSize - 1]))
-                        currentlyConnected++;
+                    if((c + boardSize*ci + ci) < board.length)
+                    {
+                        if(board[c].equals(board[c + boardSize*ci + ci]))
+                            currentlyConnected++;
+                    }
                 }
-                if((c + boardSize + 1) < board.length)
-                {
-                    if(board[c].equals(board[c + boardSize + 1]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
+                System.out.println("Currently Connected " + currentlyConnected);
+                if(currentlyConnected == boardSize - 1)
                 {
                     System.out.println(board[c] + "'s Win!");
                     return true;
                 }
                 currentlyConnected = 0;
-                if((c - boardSize + 1) >= 0)
+                for(int ci = 1; ci < boardSize; ci++)
                 {
-                    if(board[c].equals(board[c - boardSize + 1]))
-                        currentlyConnected++;
+                    if((c + boardSize*ci - ci) >= i + boardSize*ci && i + boardSize*ci < board.length)
+                    {
+                        if(board[c].equals(board[c + boardSize*ci - ci]))
+                            currentlyConnected++;
+                    }
                 }
-                if((c + boardSize - 1) < board.length)
-                {
-                    if(board[c].equals(board[c + boardSize - 1]))
-                        currentlyConnected++;
-                }
-                if(currentlyConnected == 2)
+                if(currentlyConnected == boardSize - 1)
                 {
                     System.out.println(board[c] + "'s Win!");
                     return true;
